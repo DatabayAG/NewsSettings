@@ -1,0 +1,28 @@
+{
+  "name": "databay/news-settings",
+  "description": "An ILIAS plugin that applies defaults to news settings of new objects and provides a user interface for news setting migrations.",
+  "type": "project",
+  "license": "GPL",
+  "authors": [
+    {
+      "name": "Michael Jansen",
+      "email": "mjansen@databay.de"
+    }
+  ],
+  "require-dev": {
+    "captainhook/plugin-composer": "^5.1",
+    "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "autoload": {
+    "psr-4": {
+      "ILIAS\\Plugin\\NewsSettings\\": "src/"
+    },
+    "classmap": ["./src"]
+  },
+  "require": {
+    "php": ">=7.2"
+  },
+  "config": {
+    "classmap-authoritative": true
+  }
+}
