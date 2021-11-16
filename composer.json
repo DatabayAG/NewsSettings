@@ -17,7 +17,7 @@
     "psr-4": {
       "ILIAS\\Plugin\\NewsSettings\\": "src/"
     },
-    "classmap": ["./src"]
+    "classmap": ["./src", "./classes"]
   },
   "require": {
     "php": ">=7.2"

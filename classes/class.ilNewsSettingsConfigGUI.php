@@ -20,6 +20,9 @@ declare(strict_types=1);
 
 use ILIAS\Plugin\NewsSettings\GUI\Administration\BaseController;
 
+/**
+ * @ilCtrl_Calls ilNewsSettingsConfigGUI: ilNewsSettingsApplyConfigGUI
+ */
 class ilNewsSettingsConfigGUI extends BaseController
 {
     protected function getDefaultCommand() : string
@@ -31,6 +34,15 @@ class ilNewsSettingsConfigGUI extends BaseController
     {
         $nextClass = $this->ctrl->getNextClass();
         switch (strtolower($nextClass)) {
+            case strtolower(ilNewsSettingsApplyConfigGUI::class):
+                $this->ctrl->forwardCommand(
+                    new ilNewsSettingsApplyConfigGUI(
+                        $this->plugin_object
+                    )
+                );
+                $this->tabs->activateTab('modify_settings');
+                break;
+
             default:
                 parent::executeCommand();
                 $this->tabs->activateTab('configuration_presets');
@@ -44,7 +56,32 @@ class ilNewsSettingsConfigGUI extends BaseController
         $form->setFormAction($this->ctrl->getFormAction($this, 'savePresetConfiguration'));
         $form->setTitle($this->plugin_object->txt('configuration_presets'));
 
-        $form->addCommandButton('savePresetConfiguration', $this->lng->txt('save'));
+        $form->addCommandButton('savePresetConfiguration', $this->plugin_object->txt('btn_label_save_for_new_objs'));
+
+        foreach ($this->getPluginObject()->getValidObjectTypes() as $objectType) {
+            $newsForType = new ilCheckboxInputGUI(
+                sprintf($this->plugin_object->txt('news_service_in_obj_x'), $this->lng->txt('obj_' . $objectType)),
+                'news_status_' . $objectType
+            );
+            $newsForType->setValue('1');
+            $newsForType->setInfo($this->plugin_object->txt('news_will_be_enabled'));
+
+            $blockForType = new ilCheckboxInputGUI(
+                $this->plugin_object->txt('related_news_block'),
+                'news_block_status_' . $objectType
+            );
+            $blockForType->setValue('1');
+            $blockForType->setInfo(
+                implode(' ', [
+                    $this->lng->txt('obj_tool_setting_news_info'),
+                    $this->plugin_object->txt('news_dashboard')
+                ])
+            );
+
+            $newsForType->addSubItem($blockForType);
+
+            $form->addItem($newsForType);
+        }
 
         return $form;
     }
@@ -63,6 +100,20 @@ class ilNewsSettingsConfigGUI extends BaseController
     {
         $form = $this->getPresetForm();
         if ($form->checkInput()) {
+            foreach ($this->getPluginObject()->getValidObjectTypes() as $objectType) {
+                $this->pluginSettings->setNewsStatusFor(
+                    $objectType,
+                    (bool) $form->getInput('news_status_' . $objectType)
+                );
+
+                $this->pluginSettings->setNewsBlockStatusFor(
+                    $objectType,
+                    (bool) $form->getInput('news_block_status_' . $objectType)
+                );
+            }
+
+            $this->pluginSettings->save();
+
             ilUtil::sendSuccess($this->lng->txt('saved_successfully'), true);
             $this->ctrl->redirect($this);
         }
@@ -74,7 +125,12 @@ class ilNewsSettingsConfigGUI extends BaseController
 
     protected function populateValues(ilPropertyFormGUI $form) : void
     {
-        $form->setValuesByArray([
-        ]);
+        $data = [];
+        foreach ($this->getPluginObject()->getValidObjectTypes() as $objectType) {
+            $data['news_status_' . $objectType] = $this->pluginSettings->isNewsEnabledFor($objectType);
+            $data['news_block_status_' . $objectType] = $this->pluginSettings->isNewsBlockEnabledFor($objectType);
+        }
+
+        $form->setValuesByArray($data);
     }
 }
