@@ -121,6 +121,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
                 );
 
                 if ($pluginSettings->isNewsBlockEnabledFor($object->getType())) {
+                    $object->setUseNews(true);
                     $object->setNewsBlockActivated(true);
                     $object->update();
                 }
