@@ -23,6 +23,7 @@ namespace ILIAS\Plugin\NewsSettings\GUI\Administration;
 use ilCtrl;
 use ilGlobalTemplateInterface;
 use ilLanguage;
+use ilNewsSettingsApplyConfigGUI;
 use ilNewsSettingsConfigGUI;
 use ilNewsSettingsPlugin;
 use ilObjComponentSettingsGUI;
@@ -53,6 +54,8 @@ abstract class BaseController extends ilPluginConfigGUI
     protected $dic;
     /** @var \ILIAS\HTTP\GlobalHttpState */
     protected $http;
+    /** @var Settings */
+    protected $pluginSettings;
 
     public function __construct(ilNewsSettingsPlugin $plugin = null)
     {
@@ -63,7 +66,7 @@ abstract class BaseController extends ilPluginConfigGUI
         $this->ctrl = $DIC->ctrl();
         $this->lng = $DIC->language();
         $this->pageTemplate = $DIC->ui()->mainTemplate();
-        $this->settings = $DIC['ilSetting'];
+        $this->settings = $DIC->settings();
         $this->uiFactory = $DIC->ui()->factory();
         $this->uiRenderer = $DIC->ui()->renderer();
         $this->http = $DIC->http();
@@ -134,6 +137,12 @@ abstract class BaseController extends ilPluginConfigGUI
             $this->plugin_object->txt('configuration_presets'),
             $this->ctrl->getLinkTargetByClass(ilNewsSettingsConfigGUI::class)
         );
+
+        $this->tabs->addTab(
+            'modify_settings',
+            $this->plugin_object->txt('modify_settings'),
+            $this->ctrl->getLinkTargetByClass(ilNewsSettingsApplyConfigGUI::class)
+        );
     }
 
     protected function showBackTargetTab() : void
@@ -156,6 +165,8 @@ abstract class BaseController extends ilPluginConfigGUI
      */
     public function performCommand($cmd) : void
     {
+        $this->pluginSettings = $this->dic['plugin.newssettings.settings'];
+
         if (true === method_exists($this, $cmd)) {
             $this->{$cmd}();
         } else {

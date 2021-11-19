@@ -19,7 +19,7 @@ declare(strict_types=1);
  */
 
 $id = 'objnewsefaultset';
-$version = '0.0.1';
+$version = '0.0.2';
 $ilias_min_version = '6.0';
 $ilias_max_version = '7.999';
 $responsible = 'Michael Jansen';
