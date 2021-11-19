@@ -1,1 +1,10 @@
 configuration_presets#:#Configuration Presets
+news_service_in_obj_x#:#News Service in Object «%s»
+news_will_be_enabled#:#The news service will be enabled.
+news_dashboard#:#News would be also displayed on the dashboard.
+btn_label_save_for_new_objs#:#Save Configuration Presets for New Objects
+btn_label_migrate_objs#:#Save Settings for all Objects of the Selected Object Types once
+modify_settings#:#Modify Settings
+related_news_block#:#Related News Block
+sure_adopt_preset_x#:#Are you sure you would like to adopt the news settings for all repository objects (%s)?
+enabled_news_and_block#:#Enabled News Service and News Block
