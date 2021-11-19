@@ -9,12 +9,13 @@ in this document are to be interpreted as described in
 
 * [Requirements](#requirements)
 * [Installation](#installation)
+  * [Composer](#composer)
 * [Configuration](#configuration)
 * [Specifications](#specifications)
 * [Other information](#other-information)
-    * [Correlations](#correlations)
-    * [Bugs](#bugs)
-    * [License](#license)
+  * [Correlations](#correlations)
+  * [Bugs](#bugs)
+  * [License](#license)
 
 ## Requirements
 
@@ -30,6 +31,18 @@ This plugin MUST be installed as a EventHook Plugin.
 Correct file and folder permissions MUST be
 ensured by the responsible system administrator.
 
+### Composer
+
+After the plugin files have been installed as described above,
+please install the [`composer`](https://getcomposer.org/) dependencies:
+
+```bash
+cd Customizing/global/plugins/Services/EventHandling/EventHook/NewsSettings
+composer install --no-dev
+```
+
+Developers MUST omit the `--no-dev` argument.
+
 ## Configuration
 
 None
@@ -39,14 +52,16 @@ None
 An ILIAS plugin that applies defaults to news settings of new objects and provides
 a user interface for news setting migrations.
 
-#### Correlations
+## Other Information
+
+### Correlations
 
 None
 
-#### Bugs
+### Bugs
 
 None
 
-#### License
+### License
 
 See [LICENSE](./LICENSE) file in this repository.
