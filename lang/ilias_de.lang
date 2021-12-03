@@ -1,6 +1,6 @@
 configuration_presets#:#Einstellungsvorlagen
 news_service_in_obj_x#:#Neuigkeiten-Service im Objekt «%s»
-news_will_be_enabled#:#Der Neuigkeiten-Serviced wird aktiviert.
+news_will_be_enabled#:#Der Neuigkeiten-Service wird aktiviert.
 news_dashboard#:#Neuigkeiten des Objekts würden auch auf dem Dashboard angezeigt.
 btn_label_save_for_new_objs#:#Einstellungsvorlagen für neue Objekte speichern
 btn_label_migrate_objs#:#Einstellungen einmalig für alle Objekte der gewählten Objekttypen speichern
@@ -8,3 +8,4 @@ modify_settings#:#Einstellungen anpassen
 related_news_block#:#dazugehöriger Neuigkeiten-Block
 sure_adopt_preset_x#:#Sind Sie sicher, dass Sie die Einstellungen für alle Objekte (%s) im Magazin übernehmen möchten?
 enabled_news_and_block#:#Neuigkeiten-Service und Neuigkeiten-Block aktivieren
+modify_settings_form_info#:#Mittels nachstehender Aktion können Sie die Einstellungen bestehender Objekte je Objekttyp einmalig anpassen.<br>Das aktiv setzen der Checkbox eines Objekttyps führt zur Aktivierung für diese Objekte. Inaktive Chekboxen führen nicht dazu, dass der Neuigkeiten-Service in den Objekten deaktiviert wird.

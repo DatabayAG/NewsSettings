@@ -8,3 +8,4 @@ modify_settings#:#Modify Settings
 related_news_block#:#Related News Block
 sure_adopt_preset_x#:#Are you sure you would like to adopt the news settings for all repository objects (%s)?
 enabled_news_and_block#:#Enabled News Service and News Block
+modify_settings_form_info#:#By using the following actions you can modify the settings in existing objects once.<br>Setting a checkbox as active for an object type results in an activation for this object type only. Inactive checkboxes will not result in an inactive news services for the respective objects.
