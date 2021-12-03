@@ -114,17 +114,13 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
                 in_array($object->getType(), $this->getValidObjectTypes(), true) &&
                 $pluginSettings->isNewsEnabledFor($object->getType())
             ) {
-                ilContainer::_writeContainerSetting(
-                    $object->getId(),
-                    ilObjectServiceSettingsGUI::USE_NEWS,
-                    '1'
-                );
+                $object->setUseNews(true);
 
                 if ($pluginSettings->isNewsBlockEnabledFor($object->getType())) {
-                    $object->setUseNews(true);
                     $object->setNewsBlockActivated(true);
-                    $object->update();
                 }
+
+                $object->update();
             }
         }
     }
