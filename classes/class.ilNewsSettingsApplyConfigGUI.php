@@ -43,6 +43,7 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
         $form = new ilPropertyFormGUI();
         $form->setFormAction($this->ctrl->getFormAction($this, 'confirmApplyConfiguration'));
         $form->setTitle($this->plugin_object->txt('modify_settings'));
+        $form->setDescription($this->plugin_object->txt('modify_settings_form_info'));
         $form->addCommandButton('confirmApplyConfiguration', $this->plugin_object->txt('btn_label_migrate_objs'));
 
         $enabledServices = new ilCheckboxInputGUI(
