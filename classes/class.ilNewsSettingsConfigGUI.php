@@ -20,6 +20,8 @@ declare(strict_types=1);
 
 use ILIAS\Plugin\NewsSettings\GUI\Administration\BaseController;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 /**
  * @ilCtrl_Calls ilNewsSettingsConfigGUI: ilNewsSettingsApplyConfigGUI
  */
