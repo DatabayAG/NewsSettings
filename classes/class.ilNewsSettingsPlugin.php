@@ -108,7 +108,6 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
             $object = $a_parameter['object'];
             /** @var Settings $pluginSettings */
             $pluginSettings = $this->dic['plugin.newssettings.settings'];
-            mail("mjansen@databay.de", "Test im Plugin", "Test im Plugin");
 
             // TODO: Does not work for grp and crs
             if (
