@@ -120,7 +120,9 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
                     $object->setNewsBlockActivated(true);
                 }
 
-                $object->update();
+                if (basename($_SERVER['PHP_SELF']) !== 'server.php') {
+                    $object->update();
+                }
             }
         }
     }
