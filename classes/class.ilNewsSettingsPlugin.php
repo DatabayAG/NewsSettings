@@ -108,6 +108,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
             $object = $a_parameter['object'];
             /** @var Settings $pluginSettings */
             $pluginSettings = $this->dic['plugin.newssettings.settings'];
+            mail("mjansen@databay.de", "Test im Plugin", "Test im Plugin");
 
             // TODO: Does not work for grp and crs
             if (
@@ -120,7 +121,9 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
                     $object->setNewsBlockActivated(true);
                 }
 
-                $object->update();
+                if (basename($_SERVER['PHP_SELF']) !== 'server.php') {
+                    $object->update();
+                }
             }
         }
     }
