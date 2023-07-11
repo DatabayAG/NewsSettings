@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -16,8 +14,10 @@ declare(strict_types=1);
  * https://www.ilias.de
  * https://github.com/ILIAS-eLearning
  *
- ********************************************************************
- */
+ *********************************************************************/
+
+
+declare(strict_types=1);
 
 namespace ILIAS\Plugin\NewsSettings\GUI\Administration;
 
@@ -36,11 +36,11 @@ class Settings
         $this->read();
     }
 
-    private function read() : void
+    private function read(): void
     {
         $newsByObjType = $this->settings->get('news_by_obj_type', null);
         if ($newsByObjType !== null && $newsByObjType !== '') {
-            $newsByObjType = json_decode($newsByObjType, true);
+            $newsByObjType = json_decode($newsByObjType, true, 512, JSON_THROW_ON_ERROR);
         }
 
         if (!is_array($newsByObjType)) {
@@ -50,28 +50,28 @@ class Settings
         $this->newsByObjType = $newsByObjType;
     }
 
-    public function setNewsStatusFor(string $objType, bool $status) : void
+    public function setNewsStatusFor(string $objType, bool $status): void
     {
         $this->newsByObjType[$objType]['news'] = $status;
     }
 
-    public function isNewsEnabledFor(string $objType) : bool
+    public function isNewsEnabledFor(string $objType): bool
     {
         return $this->newsByObjType[$objType]['news'] ?? false;
     }
 
-    public function setNewsBlockStatusFor(string $objType, bool $status) : void
+    public function setNewsBlockStatusFor(string $objType, bool $status): void
     {
         $this->newsByObjType[$objType]['news_block'] = $status;
     }
 
-    public function isNewsBlockEnabledFor(string $objType) : bool
+    public function isNewsBlockEnabledFor(string $objType): bool
     {
         return $this->newsByObjType[$objType]['news_block'] ?? false;
     }
 
-    public function save() : void
+    public function save(): void
     {
-        $this->settings->set('news_by_obj_type', json_encode($this->newsByObjType));
+        $this->settings->set('news_by_obj_type', json_encode($this->newsByObjType, JSON_THROW_ON_ERROR));
     }
 }

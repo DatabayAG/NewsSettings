@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -15,8 +14,10 @@ declare(strict_types=1);
  * https://www.ilias.de
  * https://github.com/ILIAS-eLearning
  *
- ********************************************************************
- */
+ *********************************************************************/
+
+
+declare(strict_types=1);
 
 namespace ILIAS\Plugin\NewsSettings\GUI\Administration;
 
@@ -31,31 +32,20 @@ use ilPluginConfigGUI;
 use ilSetting;
 use ilTabsGUI;
 use ilUtil;
+use ilCtrlInterface;
 
 abstract class BaseController extends ilPluginConfigGUI
 {
-    /** @var ilCtrl */
-    protected $ctrl;
-    /** @var ilTabsGUI */
-    protected $tabs;
-    /** @var ilLanguage */
-    protected $lng;
-    /** @var ilGlobalTemplateInterface */
-    protected $pageTemplate;
-    /** @var ilSetting */
-    public $settings;
-    /** @var ilNewsSettingsPlugin */
-    protected $plugin_object;
-    /** @var \ILIAS\UI\Factory */
-    protected $uiFactory;
-    /** @var \ILIAS\UI\Renderer */
-    protected $uiRenderer;
-    /** @var \ILIAS\DI\Container */
-    protected $dic;
-    /** @var \ILIAS\HTTP\GlobalHttpState */
-    protected $http;
-    /** @var Settings */
-    protected $pluginSettings;
+    protected ilCtrlInterface $ctrl;
+    protected ilTabsGUI $tabs;
+    protected ilLanguage $lng;
+    protected ilGlobalTemplateInterface $pageTemplate;
+    protected ilSetting $settings;
+    protected \ILIAS\UI\Factory $uiFactory;
+    protected \ILIAS\UI\Renderer $uiRenderer;
+    protected \ILIAS\DI\Container $dic;
+    protected \ILIAS\HTTP\GlobalHttpState $http;
+    protected Settings $pluginSettings;
 
     public function __construct(ilNewsSettingsPlugin $plugin = null)
     {
@@ -77,7 +67,7 @@ abstract class BaseController extends ilPluginConfigGUI
         }
     }
 
-    private function setCtrlParameterFromQuery(string $class, string $parameter) : void
+    private function setCtrlParameterFromQuery(string $class, string $parameter): void
     {
         if (
             isset($this->http->request()->getQueryParams()[$parameter]) &&
@@ -91,7 +81,7 @@ abstract class BaseController extends ilPluginConfigGUI
         }
     }
 
-    private function setCtrlParameterFromBody(string $class, string $parameter) : void
+    private function setCtrlParameterFromBody(string $class, string $parameter): void
     {
         if (
             isset($this->http->request()->getParsedBody()[$parameter]) &&
@@ -105,7 +95,7 @@ abstract class BaseController extends ilPluginConfigGUI
         }
     }
 
-    public function executeCommand() : void
+    public function executeCommand(): void
     {
         foreach (['ctype', 'cname', 'slot_id', 'plugin_id', 'pname'] as $parameter) {
             $this->setCtrlParameterFromQuery(static::class, $parameter);
@@ -120,7 +110,7 @@ abstract class BaseController extends ilPluginConfigGUI
         $this->showTabs();
     }
 
-    protected function showTabs() : void
+    protected function showTabs(): void
     {
         $this->tabs->clearTargets();
 
@@ -145,7 +135,7 @@ abstract class BaseController extends ilPluginConfigGUI
         );
     }
 
-    protected function showBackTargetTab() : void
+    protected function showBackTargetTab(): void
     {
         if (isset($this->http->request()->getQueryParams()['plugin_id'])) {
             $this->tabs->setBackTarget(
@@ -160,10 +150,7 @@ abstract class BaseController extends ilPluginConfigGUI
         }
     }
 
-    /**
-     * @param string $cmd
-     */
-    public function performCommand($cmd) : void
+    public function performCommand(string $cmd): void
     {
         $this->pluginSettings = $this->dic['plugin.newssettings.settings'];
 
@@ -174,5 +161,5 @@ abstract class BaseController extends ilPluginConfigGUI
         }
     }
 
-    abstract protected function getDefaultCommand() : string;
+    abstract protected function getDefaultCommand(): string;
 }
