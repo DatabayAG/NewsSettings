@@ -15,12 +15,13 @@ in this document are to be interpreted as described in
 * [Other information](#other-information)
   * [Correlations](#correlations)
   * [Bugs](#bugs)
+  * [Funding](#funding)
   * [License](#license)
 
 ## Requirements
 
-* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-7.2.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-7.4.x-blue.svg)](https://php.net/)
-* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-6.0-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-7.999-orange.svg)](https://ilias.de/)
+* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-7.4.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-8.0.x-blue.svg)](https://php.net/)
+* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-8.0-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-8.999-orange.svg)](https://ilias.de/)
 
 ## Installation
 
@@ -61,6 +62,11 @@ None
 ### Bugs
 
 None
+
+### Funding
+
+* Co-Funded for ILIAS 6 & 7 by Katholische Hochschule NRW, Bundesarbeitsgemeinschaft eLearning und Universität Konstanz
+* ILIAS 8-Update funded by: Katholische Hochschule NRW
 
 ### License
 
