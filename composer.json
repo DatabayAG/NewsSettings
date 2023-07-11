@@ -10,8 +10,8 @@
     }
   ],
   "require-dev": {
-    "captainhook/plugin-composer": "^5.1",
-    "friendsofphp/php-cs-fixer": "^2.16"
+    "captainhook/plugin-composer": "^5.3",
+    "friendsofphp/php-cs-fixer": "^3.18"
   },
   "autoload": {
     "psr-4": {
@@ -20,9 +20,13 @@
     "classmap": ["./src", "./classes"]
   },
   "require": {
-    "php": ">=7.2"
+    "php": ">=7.4 <8.1",
+    "ext-json": "*"
   },
   "config": {
-    "classmap-authoritative": true
+    "classmap-authoritative": true,
+    "allow-plugins": {
+      "captainhook/plugin-composer": true
+    }
   }
 }

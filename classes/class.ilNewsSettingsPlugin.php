@@ -1,10 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-use ILIAS\DI\Container;
-use ILIAS\Plugin\NewsSettings\GUI\Administration\Settings;
-
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -19,8 +14,12 @@ use ILIAS\Plugin\NewsSettings\GUI\Administration\Settings;
  * https://www.ilias.de
  * https://github.com/ILIAS-eLearning
  *
- ********************************************************************
- */
+ *********************************************************************/
+
+declare(strict_types=1);
+
+use ILIAS\DI\Container;
+use ILIAS\Plugin\NewsSettings\GUI\Administration\Settings;
 
 class ilNewsSettingsPlugin extends ilEventHookPlugin
 {
@@ -29,24 +28,26 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
     private const SLOT_ID = 'evhk';
     private const PNAME = 'NewsSettings';
 
-    /** @var self */
-    private static $instance = null;
-    /** @var bool */
-    protected static $initialized = false;
-    /** @var int[] */
-    protected static $createdObjIds = [];
-    /** @var \ILIAS\DI\Container */
-    protected $dic;
+    private static ?self $instance = null;
+    private static bool $initialized = false;
+    /** @var list<int> */
+    private static array $createdObjIds = [];
 
-    public function __construct()
-    {
+    private Container $dic;
+
+    public function __construct(
+        ilDBInterface $db,
+        ilComponentRepositoryWrite $component_repository,
+        string $id
+    ) {
         global $DIC;
 
         $this->dic = $DIC;
-        parent::__construct();
+
+        parent::__construct($db, $component_repository, $id);
     }
 
-    protected function init() : void
+    protected function init(): void
     {
         parent::init();
         $this->registerAutoloader();
@@ -54,7 +55,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
         if (!self::$initialized) {
             self::$initialized = true;
 
-            $this->dic['plugin.newssettings.settings'] = function (Container $c) : Settings {
+            $this->dic['plugin.newssettings.settings'] = function (Container $c): Settings {
                 return new Settings(
                     new ilSetting($this->getId())
                 );
@@ -62,58 +63,54 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
         }
     }
 
-    public function registerAutoloader() : void
+    public function registerAutoloader(): void
     {
         require_once __DIR__ . '/../vendor/autoload.php';
     }
 
-    public static function getInstance() : self
+    public static function getInstance(): self
     {
-        if (null === self::$instance) {
-            /** @var self $instance */
-            $instance = ilPluginAdmin::getPluginObject(
-                self::CTYPE,
-                self::CNAME,
-                self::SLOT_ID,
-                self::PNAME
-            );
+        global $DIC;
 
-            self::$instance = $instance;
+        if (self::$instance instanceof self) {
+            return self::$instance;
         }
+
+        /** @var ilComponentRepository $component_repository */
+        $component_repository = $DIC['component.repository'];
+        /** @var ilComponentFactory $component_factory */
+        $component_factory = $DIC['component.factory'];
+
+        $plugin_info = $component_repository->getComponentByTypeAndName(
+            self::CTYPE,
+            self::CNAME
+        )->getPluginSlotById(self::SLOT_ID)->getPluginByName(self::PNAME);
+
+        self::$instance = $component_factory->getPlugin($plugin_info->getId());
 
         return self::$instance;
     }
 
-    public function handleEvent($a_component, $a_event, $a_parameter) : void
+    public function handleEvent($a_component, $a_event, $a_parameter): void
     {
-        if (
-            'Services/Object' === $a_component &&
+        if ('Services/Object' === $a_component &&
             'create' === $a_event &&
-            isset($a_parameter['obj_id'])
-        ) {
+            isset($a_parameter['obj_id'])) {
             self::$createdObjIds[] = (int) $a_parameter['obj_id'];
             return;
         }
 
-        if (
+        if (isset($a_parameter['object'], $a_parameter['obj_id']) &&
             'Services/Object' === $a_component &&
             'putObjectInTree' === $a_event &&
-            isset($a_parameter['object']) &&
-            (
-                isset($a_parameter['obj_id']) &&
-                in_array((int) $a_parameter['obj_id'], self::$createdObjIds, true)
-            )
-        ) {
+            in_array((int) $a_parameter['obj_id'], self::$createdObjIds, true)) {
             /** @var ilObject $object */
             $object = $a_parameter['object'];
             /** @var Settings $pluginSettings */
             $pluginSettings = $this->dic['plugin.newssettings.settings'];
 
-            // TODO: Does not work for grp and crs
-            if (
-                in_array($object->getType(), $this->getValidObjectTypes(), true) &&
-                $pluginSettings->isNewsEnabledFor($object->getType())
-            ) {
+            if (in_array($object->getType(), $this->getValidObjectTypes(), true) &&
+                $pluginSettings->isNewsEnabledFor($object->getType())) {
                 $object->setUseNews(true);
 
                 if ($pluginSettings->isNewsBlockEnabledFor($object->getType())) {
@@ -128,9 +125,9 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
-    public function getValidObjectTypes() : array
+    public function getValidObjectTypes(): array
     {
         return [
             'cat',
@@ -139,7 +136,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
         ];
     }
 
-    public function getPluginName() : string
+    public function getPluginName(): string
     {
         return self::PNAME;
     }

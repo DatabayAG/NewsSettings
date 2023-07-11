@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -15,19 +14,21 @@ declare(strict_types=1);
  * https://www.ilias.de
  * https://github.com/ILIAS-eLearning
  *
- ********************************************************************
- */
+ *********************************************************************/
+
+
+declare(strict_types=1);
 
 use ILIAS\Plugin\NewsSettings\GUI\Administration\BaseController;
 
 class ilNewsSettingsApplyConfigGUI extends BaseController
 {
-    protected function getDefaultCommand() : string
+    protected function getDefaultCommand(): string
     {
         return 'showConfiguration';
     }
 
-    public function executeCommand() : void
+    public function executeCommand(): void
     {
         $nextClass = $this->ctrl->getNextClass();
         switch (strtolower($nextClass)) {
@@ -38,7 +39,7 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
         }
     }
 
-    protected function getForm() : ilPropertyFormGUI
+    protected function getForm(): ilPropertyFormGUI
     {
         $form = new ilPropertyFormGUI();
         $form->setFormAction($this->ctrl->getFormAction($this, 'confirmApplyConfiguration'));
@@ -70,7 +71,7 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
         return $form;
     }
 
-    protected function showConfiguration(ilPropertyFormGUI $form = null) : void
+    protected function showConfiguration(ilPropertyFormGUI $form = null): void
     {
         if (null === $form) {
             $form = $this->getForm();
@@ -79,7 +80,7 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
         $this->pageTemplate->setContent($form->getHTML());
     }
 
-    protected function confirmApplyConfiguration() : void
+    protected function confirmApplyConfiguration(): void
     {
         $form = $this->getForm();
         if ($form->checkInput()) {
@@ -109,7 +110,7 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
         $this->pageTemplate->setContent($form->getHTML());
     }
 
-    protected function applyConfiguration() : void
+    protected function applyConfiguration(): void
     {
         $objTypes = array_intersect(
             (array) ($this->http->request()->getParsedBody()['obj_types'] ?? []),
@@ -128,26 +129,25 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
             INNER JOIN object_data od ON od.obj_id = container_settings.id  
             SET container_settings.value = %s
             WHERE container_settings.keyword = %s ' . $objTypesIn,
-                ['text', 'text'],
+                [ilDBConstants::T_TEXT, ilDBConstants::T_TEXT],
                 ['1', $newsSetting]
             );
 
             $this->dic->database()->manipulateF(
-                'INSERT INTO container_settings
-            (id, keyword, value)  
-            (
-                SELECT od.obj_id, %s, %s
-                FROM object_data od
-                LEFT JOIN container_settings
-                    ON container_settings.id = od.obj_id AND container_settings.keyword = %s
-                WHERE container_settings.id IS NULL ' . $objTypesIn . '
-            )',
-                ['text', 'text', 'text'],
+                'INSERT INTO container_settings (id, keyword, value)  
+                (
+                    SELECT od.obj_id, %s, %s
+                    FROM object_data od
+                    LEFT JOIN container_settings
+                        ON container_settings.id = od.obj_id AND container_settings.keyword = %s
+                    WHERE container_settings.id IS NULL ' . $objTypesIn . '
+                )',
+                [ilDBConstants::T_TEXT, ilDBConstants::T_TEXT, ilDBConstants::T_TEXT],
                 [$newsSetting, '1', $newsSetting]
             );
         }
 
-        ilUtil::sendSuccess($this->lng->txt('saved_successfully'), true);
-        $this->ctrl->redirect($this);
+        $this->pageTemplate->setOnScreenMessage('success', $this->lng->txt('saved_successfully'), true);
+        $this->ctrl->redirect($this, 'configure');
     }
 }

@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 $id = 'objnewsefaultset';
 $version = '1.0.0';
-$ilias_min_version = '6.0';
-$ilias_max_version = '7.999';
+$ilias_min_version = '8.0';
+$ilias_max_version = '8.999';
 $responsible = 'Michael Jansen';
 $responsible_mail = 'mjansen@databay.de';
