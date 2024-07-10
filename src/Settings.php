@@ -16,19 +16,19 @@
  *
  *********************************************************************/
 
-
 declare(strict_types=1);
 
 namespace ILIAS\Plugin\NewsSettings\GUI\Administration;
 
 use ilSetting;
+use JsonException;
 
 class Settings
 {
-    /** @var ilSetting */
-    private $settings;
+    private ilSetting $settings;
 
-    private $newsByObjType = [];
+    /** @var array<string, array{news: bool, news_block: bool}> */
+    private array $newsByObjType = [];
 
     public function __construct(ilSetting $settings)
     {
@@ -40,11 +40,15 @@ class Settings
     {
         $newsByObjType = $this->settings->get('news_by_obj_type', null);
         if ($newsByObjType !== null && $newsByObjType !== '') {
-            $newsByObjType = json_decode($newsByObjType, true, 512, JSON_THROW_ON_ERROR);
+            try {
+                $newsByObjType = json_decode($newsByObjType, true, 512, JSON_THROW_ON_ERROR);
+            } catch (JsonException) {
+                $newsByObjType = [];
+            }
         }
 
         if (!is_array($newsByObjType)) {
-            $newsByObjType  = [];
+            $newsByObjType = [];
         }
 
         $this->newsByObjType = $newsByObjType;
