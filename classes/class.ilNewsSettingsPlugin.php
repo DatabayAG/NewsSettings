@@ -50,7 +50,6 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
     protected function init(): void
     {
         parent::init();
-        $this->registerAutoloader();
 
         if (!self::$initialized) {
             self::$initialized = true;
@@ -61,11 +60,6 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
                 );
             };
         }
-    }
-
-    public function registerAutoloader(): void
-    {
-        require_once __DIR__ . '/../vendor/autoload.php';
     }
 
     public static function getInstance(): self
@@ -104,7 +98,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
             'Services/Object' === $a_component &&
             'putObjectInTree' === $a_event &&
             in_array((int) $a_parameter['obj_id'], self::$createdObjIds, true)) {
-            /** @var ilObject $object */
+            /** @var ilObject|ilContainer $object */
             $object = $a_parameter['object'];
             /** @var Settings $pluginSettings */
             $pluginSettings = $this->dic['plugin.newssettings.settings'];
