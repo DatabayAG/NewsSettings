@@ -28,6 +28,7 @@ class Settings
 {
     private ilSetting $settings;
 
+    /** @var array<string, array{news: bool, news_block: bool}> */
     private array $newsByObjType = [];
 
     public function __construct(ilSetting $settings)
