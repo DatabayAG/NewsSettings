@@ -16,13 +16,15 @@
  *
  *********************************************************************/
 
-
 declare(strict_types=1);
 
 namespace ILIAS\Plugin\NewsSettings\GUI\Administration;
 
-use ilCtrl;
 use ilGlobalTemplateInterface;
+use ILIAS\DI\Container;
+use ILIAS\HTTP\GlobalHttpState;
+use ILIAS\UI\Factory;
+use ILIAS\UI\Renderer;
 use ilLanguage;
 use ilNewsSettingsApplyConfigGUI;
 use ilNewsSettingsConfigGUI;
@@ -41,10 +43,10 @@ abstract class BaseController extends ilPluginConfigGUI
     protected ilLanguage $lng;
     protected ilGlobalTemplateInterface $pageTemplate;
     protected ilSetting $settings;
-    protected \ILIAS\UI\Factory $uiFactory;
-    protected \ILIAS\UI\Renderer $uiRenderer;
-    protected \ILIAS\DI\Container $dic;
-    protected \ILIAS\HTTP\GlobalHttpState $http;
+    protected Factory $uiFactory;
+    protected Renderer $uiRenderer;
+    protected Container $dic;
+    protected GlobalHttpState $http;
     protected Settings $pluginSettings;
 
     public function __construct(ilNewsSettingsPlugin $plugin = null)
