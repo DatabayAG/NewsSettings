@@ -44,7 +44,7 @@ class Settings
         }
 
         if (!is_array($newsByObjType)) {
-            $newsByObjType  = [];
+            $newsByObjType = [];
         }
 
         $this->newsByObjType = $newsByObjType;

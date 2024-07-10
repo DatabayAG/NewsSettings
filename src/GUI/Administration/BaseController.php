@@ -21,7 +21,6 @@ declare(strict_types=1);
 
 namespace ILIAS\Plugin\NewsSettings\GUI\Administration;
 
-use ilCtrl;
 use ilGlobalTemplateInterface;
 use ilLanguage;
 use ilNewsSettingsApplyConfigGUI;
