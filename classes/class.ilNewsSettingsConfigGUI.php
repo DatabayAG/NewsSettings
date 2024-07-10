@@ -16,7 +16,6 @@
  *
  *********************************************************************/
 
-
 declare(strict_types=1);
 
 use ILIAS\Plugin\NewsSettings\GUI\Administration\BaseController;
