@@ -74,7 +74,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
 
     public function handleEvent($a_component, $a_event, $a_parameter): void
     {
-        if ('Services/Object' === $a_component &&
+        if ('components/ILIAS/ILIASObject' === $a_component &&
             'create' === $a_event &&
             isset($a_parameter['obj_id'])) {
             self::$createdObjIds[] = (int) $a_parameter['obj_id'];
@@ -82,7 +82,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
         }
 
         if (isset($a_parameter['object'], $a_parameter['obj_id']) &&
-            'Services/Object' === $a_component &&
+            'components/ILIAS/ILIASObject' === $a_component &&
             'putObjectInTree' === $a_event &&
             in_array((int) $a_parameter['obj_id'], self::$createdObjIds, true)) {
             /** @var ilObject|ilContainer $object */
