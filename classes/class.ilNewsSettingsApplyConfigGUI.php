@@ -146,7 +146,7 @@ class ilNewsSettingsApplyConfigGUI extends BaseController
             );
         }
 
-        $this->pageTemplate->setOnScreenMessage('success', $this->lng->txt('saved_successfully'), true);
+        $this->pageTemplate->setOnScreenMessage(ilGlobalTemplateInterface::MESSAGE_TYPE_SUCCESS, $this->lng->txt('saved_successfully'), true);
         $this->ctrl->redirect($this, 'configure');
     }
 }
