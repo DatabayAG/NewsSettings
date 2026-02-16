@@ -20,8 +20,8 @@ in this document are to be interpreted as described in
 
 ## Requirements
 
-* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-8.1.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-8.2.x-blue.svg)](https://php.net/)
-* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-9.0-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-9.999-orange.svg)](https://ilias.de/)
+* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-8.2.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-8.3.x-blue.svg)](https://php.net/)
+* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-10.0-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-10.999-orange.svg)](https://ilias.de/)
 
 ## Installation
 
