@@ -26,7 +26,6 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
     private const CTYPE = 'Services';
     private const CNAME = 'EventHandling';
     private const SLOT_ID = 'evhk';
-    private const PNAME = 'NewsSettings';
 
     private static ?self $instance = null;
     private static bool $initialized = false;
@@ -128,10 +127,5 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
             'crs',
             'grp',
         ];
-    }
-
-    public function getPluginName(): string
-    {
-        return self::PNAME;
     }
 }
