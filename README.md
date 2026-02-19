@@ -20,14 +20,14 @@ in this document are to be interpreted as described in
 
 ## Requirements
 
-* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-8.1.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-8.2.x-blue.svg)](https://php.net/)
-* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-9.0-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-9.999-orange.svg)](https://ilias.de/)
+* PHP: [![Minimum PHP Version](https://img.shields.io/badge/Minimum_PHP-8.2.x-blue.svg)](https://php.net/) [![Maximum PHP Version](https://img.shields.io/badge/Maximum_PHP-8.3.x-blue.svg)](https://php.net/)
+* ILIAS: [![Minimum ILIAS Version](https://img.shields.io/badge/Minimum_ILIAS-10.0-orange.svg)](https://ilias.de/) [![Maximum ILIAS Version](https://img.shields.io/badge/Maximum_ILIAS-10.999-orange.svg)](https://ilias.de/)
 
 ## Installation
 
 This plugin MUST be installed as a EventHook Plugin.
 
-	<ILIAS>/Customizing/global/plugins/Services/EventHandling/EventHook/NewsSettings
+	<ILIAS>/public/Customizing/global/plugins/Services/EventHandling/EventHook/NewsSettings
 
 Correct file and folder permissions MUST be
 ensured by the responsible system administrator.
@@ -38,7 +38,7 @@ After the plugin files have been installed as described above,
 please install the [`composer`](https://getcomposer.org/) dependencies:
 
 ```bash
-cd Customizing/global/plugins/Services/EventHandling/EventHook/NewsSettings
+cd public/Customizing/global/plugins/Services/EventHandling/EventHook/NewsSettings
 composer install --no-dev
 ```
 

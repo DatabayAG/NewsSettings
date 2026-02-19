@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 /**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
@@ -15,12 +14,13 @@ declare(strict_types=1);
  * https://www.ilias.de
  * https://github.com/ILIAS-eLearning
  *
- ********************************************************************
- */
+ *********************************************************************/
+
+declare(strict_types=1);
 
 $id = 'objnewsefaultset';
-$version = '1.0.0';
-$ilias_min_version = '9.0';
-$ilias_max_version = '9.999';
+$version = '10.0.0';
+$ilias_min_version = '10.0';
+$ilias_max_version = '10.999';
 $responsible = 'Michael Jansen';
 $responsible_mail = 'mjansen@databay.de';

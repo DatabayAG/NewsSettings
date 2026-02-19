@@ -23,10 +23,7 @@ use ILIAS\Plugin\NewsSettings\GUI\Administration\Settings;
 
 class ilNewsSettingsPlugin extends ilEventHookPlugin
 {
-    private const CTYPE = 'Services';
-    private const CNAME = 'EventHandling';
-    private const SLOT_ID = 'evhk';
-    private const PNAME = 'NewsSettings';
+    private const ID = 'objnewsefaultset';
 
     private static ?self $instance = null;
     private static bool $initialized = false;
@@ -70,24 +67,14 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
             return self::$instance;
         }
 
-        /** @var ilComponentRepository $component_repository */
-        $component_repository = $DIC['component.repository'];
-        /** @var ilComponentFactory $component_factory */
-        $component_factory = $DIC['component.factory'];
-
-        $plugin_info = $component_repository->getComponentByTypeAndName(
-            self::CTYPE,
-            self::CNAME
-        )->getPluginSlotById(self::SLOT_ID)->getPluginByName(self::PNAME);
-
-        self::$instance = $component_factory->getPlugin($plugin_info->getId());
-
+        $componentFactory = $DIC["component.factory"];
+        self::$instance = $componentFactory->getPlugin(self::ID);
         return self::$instance;
     }
 
     public function handleEvent($a_component, $a_event, $a_parameter): void
     {
-        if ('Services/Object' === $a_component &&
+        if ('components/ILIAS/ILIASObject' === $a_component &&
             'create' === $a_event &&
             isset($a_parameter['obj_id'])) {
             self::$createdObjIds[] = (int) $a_parameter['obj_id'];
@@ -95,7 +82,7 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
         }
 
         if (isset($a_parameter['object'], $a_parameter['obj_id']) &&
-            'Services/Object' === $a_component &&
+            'components/ILIAS/ILIASObject' === $a_component &&
             'putObjectInTree' === $a_event &&
             in_array((int) $a_parameter['obj_id'], self::$createdObjIds, true)) {
             /** @var ilObject|ilContainer $object */
@@ -128,10 +115,5 @@ class ilNewsSettingsPlugin extends ilEventHookPlugin
             'crs',
             'grp',
         ];
-    }
-
-    public function getPluginName(): string
-    {
-        return self::PNAME;
     }
 }
